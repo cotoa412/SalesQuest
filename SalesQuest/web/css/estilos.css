@@ -1,0 +1,11 @@
+#contenedor-registro{ 
+    display: flex;
+    background: blue;  
+}
+
+#form-register{
+    
+    width: 900px;
+    margin: 0 auto;
+    
+}
