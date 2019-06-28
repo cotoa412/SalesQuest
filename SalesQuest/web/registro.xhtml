@@ -12,23 +12,26 @@ and open the template in the editor.
     
     <h:head>
         <title>Registro</title>
+        <meta name="google-signin-scope" content="profile email"/>
+        <meta name="google-signin-client_id" content="607198644487-52v06mono4as484c1j4mobsm7cco029b.apps.googleusercontent.com"/>
+        <script src="https://apis.google.com/js/platform.js" async="defer" ></script>
         <h:outputStylesheet library="css" name="estilos.css"/>
         <link rel="stylesheet" href="./css/estilos.css"/>
     </h:head>
     <h:body>
         <div id="contenedor-registro">
             <p:outputLabel value="Registrar nuevo usuario"/>
-            <h:form id="form-register">
+            <h:form id="for">
                 <p:panelGrid columns="2">
             
                 <p:outputLabel value="Nombre:"/>
-                <p:inputText value="#{registroController.usuario.nombre}"/>
+                <p:inputText id="nombre" value="#{registroController.usuario.nombre}"/>
             
                 <p:outputLabel value="Apellidos:"/>
-                <p:inputText value="#{registroController.usuario.apellidos}"/>
+                <p:inputText id="apellidos" value="#{registroController.usuario.apellidos}"/>
             
                 <p:outputLabel value="Correo:"/>
-                <p:inputText value="#{registroController.usuario.correo}"/>
+                <p:inputText id="correo" value="#{registroController.usuario.correo}"/>
             
                 <p:outputLabel value="Nombre usuario:"/>
                 <p:inputText value="#{registroController.usuario.nombreUsuario}"/>
@@ -45,11 +48,34 @@ and open the template in the editor.
                     <f:selectItems value="Oferente" />
                      <f:selectItems value="Cliente" />
                 </p:selectOneMenu>
-                <p:commandButton value="Confirmar" actionListener="#{registroController.aceptar()}" update="@form"/> 
+                <p:commandButton value="Confirmar" actionListener="#{registroController.aceptar()}" update="@form"/>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
                
             </p:panelGrid>
             </h:form>    
         </div>
         
     </h:body>
+    
+    <script >
+           function onSignIn(googleUser) {
+                    // Useful data for your client-side scripts:
+           var profile = googleUser.getBasicProfile();
+                    
+           document.getElementById('for:nombre').value = profile.getGivenName();
+           document.getElementById('for:apellidos').value = profile.getFamilyName();
+           document.getElementById('for:correo').value = profile.getEmail();
+                    
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
+ 
+                   // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+                                        }
+    </script>
 </html>
