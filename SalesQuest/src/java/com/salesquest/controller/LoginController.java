@@ -33,9 +33,6 @@ public class LoginController {
     }
 
     public void ingresar() {
-        System.out.println("El valor digitado usuario es: " + this.getUsuario());
-        System.out.println("El valor digitado Clave es: " + this.getClave());
-        System.out.println("El valor digitado Mensaje es: " + this.getMensaje());
         FacesContext context = FacesContext.getCurrentInstance();
         if (this.getUsuario().equalsIgnoreCase("admin") && (this.getClave().equalsIgnoreCase("testtest"))) { //Usuario registrado
 
