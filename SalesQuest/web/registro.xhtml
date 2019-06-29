@@ -53,11 +53,13 @@ and open the template in the editor.
                        <f:selectItem itemLabel="Cliente" itemValue="Cliente" />
                 </p:selectOneMenu>
                 <p:commandButton value="Confirmar" actionListener="#{registroController.aceptar()}" update="@form"/>
-                <p:commandButton value="Atrás" update="@form" action="index.xhtml"/>
+                <p:commandButton value="Atrás"/>
                 
+                 
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                
+                 
             </p:panelGrid>
+               
             </h:form>    
         </p:panel>
         </p:panel> 
