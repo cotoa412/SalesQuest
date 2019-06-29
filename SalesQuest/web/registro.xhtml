@@ -35,22 +35,22 @@ and open the template in the editor.
                 <p:inputText id="apellidos" value="#{registroController.usuario.apellidos}" style="width: 400px;"/>
             
                 <p:outputLabel value="Correo:"/>
-                <p:inputText id="correo" value="#{registroController.usuario.correo}" style="width: 400px;"/>
+                <p:inputText id="correo" value="#{registroController.usuario.correo}" disabled="false" style="width: 400px;"/>
             
                 <p:outputLabel value="Nombre usuario:"/>
                 <p:inputText value="#{registroController.usuario.nombreUsuario}" style="width: 400px;"/>
             
                 <p:outputLabel value="Contraseña:"/>
-                <p:password value="#{registroController.usuario.contrasenna}" match="clave2" style="width: 400px;"/>
+                <p:password value="#{registroController.usuario.contrasenna}" match="clave2" label="Password 1" required="true" style="width: 400px;"/>
             
                 <p:outputLabel value="Confirmar contraseña:"/>
-                <p:password id="clave2" style="width: 400px;"/>
+                <p:password id="clave2" value="#{registroController.usuario.contrasenna}" style="width: 400px;"/>
             
                 <p:outputLabel value="Tipo usuario"/>
                 <p:selectOneMenu id="tipo-usuario" style="width:150px">
-                    <f:selectItem itemLabel="Tipo usuario" itemValue="" noSelectionOption="true" />
-                    <f:selectItems value="Oferente" />
-                     <f:selectItems value="Cliente" />
+                       <f:selectItem itemLabel="Tipo cliente" itemValue="" /> 
+                       <f:selectItem itemLabel="Oferente" itemValue="Oferente" />
+                       <f:selectItem itemLabel="Cliente" itemValue="Cliente" />
                 </p:selectOneMenu>
                 <p:commandButton value="Confirmar" actionListener="#{registroController.aceptar()}" update="@form"/>
                 <p:commandButton value="Atrás" update="@form" action="index.xhtml"/>

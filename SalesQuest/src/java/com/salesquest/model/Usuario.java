@@ -11,7 +11,7 @@ package com.salesquest.model;
  */
 public class Usuario {
     
-     int idUsuario;
+    int idUsuario;
     private String nombre;
     private String apellidos;
     private String correo;
@@ -31,6 +31,7 @@ public class Usuario {
          this.nombreUsuario = nombreUsuario;
          this.contrasenna = contrasenna;
          this.tipoUsuario = tipoUsuario;
+         
      }
 
     public int getIdUsuario() {
