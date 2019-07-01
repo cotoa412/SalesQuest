@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 
 /**
  *
- * @author Laboratorio
+ * @author Vigo02
  */
 public abstract class Servicio {
 
