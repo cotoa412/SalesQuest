@@ -48,11 +48,11 @@ and open the template in the editor.
             
                 <p:outputLabel value="Tipo usuario"/>
                 <p:selectOneMenu id="tipo-usuario" style="width:150px">
-                       <f:selectItem itemLabel="Tipo cliente" itemValue="" /> 
+                    <f:selectItem itemLabel="Tipo cliente" itemValue="#{registroController.usuario.tipoUsuario}" /> 
                        <f:selectItem itemLabel="Oferente" itemValue="Oferente" />
                        <f:selectItem itemLabel="Cliente" itemValue="Cliente" />
                 </p:selectOneMenu>
-                <p:commandButton value="Confirmar" actionListener="#{registroController.aceptar()}" update="@form"/>
+                <p:commandButton value="Confirmar" actionListener="#{registroController.registrar()}" update="@form" action="index"/>
                 <p:commandButton value="Atrás"/>
                 
                  

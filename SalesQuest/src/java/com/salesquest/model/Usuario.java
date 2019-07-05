@@ -18,7 +18,8 @@ public class Usuario {
     private String nombreUsuario;
     private String contrasenna;
     private String tipoUsuario;
-
+    
+    
     public Usuario() {
         
     }

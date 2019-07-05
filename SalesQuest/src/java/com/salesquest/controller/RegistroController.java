@@ -6,6 +6,7 @@
 package com.salesquest.controller;
 
 import com.salesquest.model.Usuario;
+import com.salesquest.servicio.Servicio_Usuario;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -17,7 +18,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class RegistroController {
     
-    public Usuario usuario = new Usuario();
+    private Usuario usuario = new Usuario();
     
     public RegistroController(){
     
@@ -33,12 +34,14 @@ public class RegistroController {
         this.usuario = usuario;
     }
     
-    public void aceptar(){
+    public void registrar(){
         
-        System.out.println(usuario);
+        Servicio_Usuario su = new Servicio_Usuario();
+        su.insertarDato(usuario);
+        
+        usuario = null;
    
     }
-    
     
     
     
