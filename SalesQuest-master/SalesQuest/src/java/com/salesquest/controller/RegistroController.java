@@ -6,9 +6,19 @@
 package com.salesquest.controller;
 
 import com.salesquest.model.Usuario;
+import com.salesquest.servicio.Servicio_Codigo;
 import com.salesquest.servicio.Servicio_Usuario;
+import com.salesquest.model.Codigo;
+import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +29,7 @@ import javax.faces.bean.SessionScoped;
 public class RegistroController {
     
     private Usuario usuario = new Usuario();
+   
     
     public RegistroController(){
     
@@ -42,7 +53,5 @@ public class RegistroController {
         usuario = null;
    
     }
-    
-    
-    
+     
 }

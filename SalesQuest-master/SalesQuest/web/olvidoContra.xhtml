@@ -32,18 +32,16 @@ and open the template in the editor.
                 <h:outputLabel value=""/>
                 
                 <h:outputLabel value="Correo:"/>
-                <p:inputText value="" />    <!--  progamar -->
+                <p:inputText value="#{recuperarContraController.correo}"/>    <!--  progamar -->
                 
-              
+          
                 
                 <h:outputLabel value=""/>
             
                 
             </h:panelGrid>
-           
-           <h:link outcome="olvidoContraInsertar">Enviar</h:link> <!--  progamar -->                    
-                
-                
+           <p:commandButton value="Enviar" action="olvidoContraInsertar" actionListener="#{recuperarContraController.recuperarContrasenna()}" update="@form"/>
+                                     
         </h:form>
 
         </p:panel>

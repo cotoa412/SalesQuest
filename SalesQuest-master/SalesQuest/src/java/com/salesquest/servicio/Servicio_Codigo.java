@@ -4,22 +4,24 @@
  * and open the template in the editor.
  */
 package com.salesquest.servicio;
+
+import com.salesquest.model.Codigo;
 import com.salesquest.model.Usuario;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import static com.salesquest.servicio.Servicio.conn;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
- * @author Vigo02
+ * @author Personal
  */
-public class Servicio_Usuario extends Servicio implements IDAO{
+public class Servicio_Codigo extends Servicio implements IDAO {
 
     @Override
     public List<Object> mostrarDatos() {
-          
+        
         ResultSet rs = null;
         Statement stmt = null;
         List<Object> listaRetorno = new ArrayList<Object>();
@@ -28,21 +30,17 @@ public class Servicio_Usuario extends Servicio implements IDAO{
             this.conectar();
             
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM salesquest.usuario";
+            String sql = "SELECT * FROM recuperacion";
             
             rs = stmt.executeQuery(sql);
             
            while(rs.next()){
                
-               int id = rs.getInt("idUsuario");
-               String nom = rs.getString("nombre");
-               String apellidos = rs.getString("apellidos");
-               String correo = rs.getString("correo");
-               String nombreUsuario = rs.getString("nombreUsuario");
-               String contrasenna = rs.getString("contrasenna");
-               String tipoUsuario = rs.getString("tipoUsuario");
+               int usuario = rs.getInt("usuario_r");
+               String codigo = rs.getString("codigo");
                
-               listaRetorno.add(new Usuario(id,nom,apellidos,correo,nombreUsuario,contrasenna,tipoUsuario));
+               
+               listaRetorno.add(new Codigo(usuario,codigo));
             
            }
              
@@ -63,31 +61,50 @@ public class Servicio_Usuario extends Servicio implements IDAO{
         }
         
         return listaRetorno;
+                
+                
+                
+                
     }
 
     @Override
     public void insertarDato(Object obj) {
-       Statement stmt = null;
-       try{
-           this.conectar();//Me conecto a la base de datos.
-           
-           
-           stmt = conn.createStatement();
-           String sql = "INSERT INTO usuario(nombre, apellidos, correo, nombre_usuario, contrasenna, tipo_cliente) VALUE('"+((Usuario)obj).getNombre()+"','"+((Usuario)obj).getApellidos()+"','"+((Usuario)obj).getCorreo()+"','"+((Usuario)obj).getNombreUsuario()+"','"+((Usuario)obj).getContrasenna()+"','"+((Usuario)obj).getTipoUsuario()+"')";                                                                                                            
-           int i = stmt.executeUpdate(sql);
-       }catch(Exception e){
-         e.printStackTrace();
-       }
-       finally{
-           
-       }
-       try{
-           stmt.close();
-           
-           this.desconectar();//Me desconecto.
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+        Statement stmt = null;
+        List<Integer> random = new ArrayList<>();
+        StringBuffer sb = new StringBuffer();
+        
+        for (int i = 0; i < 6; i++) {
+        int numero = (int) (Math.random() * 10) + 1;
+            random.add(numero);
+        }
+        
+        for (Integer i : random) {
+            sb.append(i);
+        } 
+        
+        String codigo = sb.toString();
+                
+        try{
+            this.conectar();
+            stmt = conn.createStatement();
+            
+            String sql = "INSERT INTO recuperacion(usuario_r,codigo) VALUE("+((Usuario)obj).getIdUsuario()+",'"+codigo+"')";
+            
+            int insert = stmt.executeUpdate(sql);
+            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            
+        }finally{
+            try{
+                stmt.close();
+                this.desconectar();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -99,7 +116,5 @@ public class Servicio_Usuario extends Servicio implements IDAO{
     public void eliminarDato(Object obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     
-
 }

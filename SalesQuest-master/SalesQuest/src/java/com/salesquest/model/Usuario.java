@@ -24,6 +24,18 @@ public class Usuario {
         
     }
     
+    public Usuario(int idUsuario,String nombre,String apellidos,String correo,String nombreUsuario,String contrasenna,String tipoUsuario) {
+           
+         this.idUsuario = idUsuario;
+         this.nombre = nombre;
+         this.apellidos = apellidos;
+         this.correo = correo;
+         this.nombreUsuario = nombreUsuario;
+         this.contrasenna = contrasenna;
+         this.tipoUsuario = tipoUsuario;
+         
+     }
+    
      public Usuario(String nombre,String apellidos,String correo,String nombreUsuario,String contrasenna,String tipoUsuario) {
            
          this.nombre = nombre;
