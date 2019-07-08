@@ -10,8 +10,10 @@ import com.salesquest.model.Usuario;
 import com.salesquest.servicio.Servicio_Codigo;
 import com.salesquest.servicio.Servicio_Usuario;
 import java.util.Properties;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -29,6 +31,9 @@ public class recuperarContraController {
     
     private Usuario usuario = new Usuario();
     private String correo;
+    private String codigo;
+    private String nuevaContrasenna;
+    
     
     public recuperarContraController(){
     
@@ -49,9 +54,23 @@ public class recuperarContraController {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
-    
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNuevaContrasenna() {
+        return nuevaContrasenna;
+    }
+
+    public void setNuevaContrasenna(String nuevaContrasenna) {
+        this.nuevaContrasenna = nuevaContrasenna;
+    }
+ 
     public void recuperarContrasenna(){
         
         Servicio_Usuario s = new Servicio_Usuario();
@@ -108,7 +127,30 @@ public class recuperarContraController {
             
         }
         
-      usuario = null;  
+      correo = null;  
+    }
+    
+    public String confirmarCodigo(){
+    
+        Servicio_Usuario s = new Servicio_Usuario();
+        Servicio_Codigo c = new Servicio_Codigo();
+        String dir = "";
+        
+        for (Object obj: c.mostrarDatos()) {
+            
+            if (((Codigo)obj).getCodigo().equalsIgnoreCase(codigo)) {
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Correcto."));
+                dir = "OlvidoContraCambiar.xhtml?faces-redirect=true";
+                
+            }else{
+            
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Código incorrecto."));
+                
+            }
+            
+        }    
+        return dir;
     }
     
     
