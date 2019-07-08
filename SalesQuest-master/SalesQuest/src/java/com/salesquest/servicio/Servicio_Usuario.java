@@ -28,7 +28,7 @@ public class Servicio_Usuario extends Servicio implements IDAO{
             this.conectar();
             
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM salesquest.usuario";
+            String sql = "SELECT * FROM usuario";
             
             rs = stmt.executeQuery(sql);
             
@@ -73,8 +73,9 @@ public class Servicio_Usuario extends Servicio implements IDAO{
            
            
            stmt = conn.createStatement();
-           String sql = "INSERT INTO usuario(nombre, apellidos, correo, nombre_usuario, contrasenna, tipo_cliente) VALUE('"+((Usuario)obj).getNombre()+"','"+((Usuario)obj).getApellidos()+"','"+((Usuario)obj).getCorreo()+"','"+((Usuario)obj).getNombreUsuario()+"','"+((Usuario)obj).getContrasenna()+"','"+((Usuario)obj).getTipoUsuario()+"')";                                                                                                            
+           String sql = "INSERT INTO usuario(nombre, apellidos, correo, nombreUsuario, contrasenna, tipoUsuario) VALUE('"+((Usuario)obj).getNombre()+"','"+((Usuario)obj).getApellidos()+"','"+((Usuario)obj).getCorreo()+"','"+((Usuario)obj).getNombreUsuario()+"','"+((Usuario)obj).getContrasenna()+"','"+((Usuario)obj).getTipoUsuario()+"')";                                                                                                            
            int i = stmt.executeUpdate(sql);
+           
        }catch(Exception e){
          e.printStackTrace();
        }

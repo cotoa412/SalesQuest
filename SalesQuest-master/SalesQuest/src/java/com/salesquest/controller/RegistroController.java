@@ -10,8 +10,10 @@ import com.salesquest.servicio.Servicio_Codigo;
 import com.salesquest.servicio.Servicio_Usuario;
 import com.salesquest.model.Codigo;
 import java.util.Properties;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -47,11 +49,26 @@ public class RegistroController {
     
     public void registrar(){
         
+        
+        
         Servicio_Usuario su = new Servicio_Usuario();
         su.insertarDato(usuario);
         
-        usuario = null;
-   
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro completo."));
+        
+        usuario.setNombre("");
+        usuario.setApellidos("");
+        usuario.setCorreo("");
+        usuario.setNombreUsuario("");
+        
     }
      
+    public String volverInicio(){
+        usuario.setNombre("");
+        usuario.setApellidos("");
+        usuario.setCorreo("");
+        usuario.setNombreUsuario("");
+    return "index.xhtml?faces-redirect=true";
+    
+    }
 }
