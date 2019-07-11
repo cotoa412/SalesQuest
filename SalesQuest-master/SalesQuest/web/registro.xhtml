@@ -27,7 +27,7 @@ and open the template in the editor.
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate />
             </p:messages>
-            
+            <p:messages showDetail="true"/>
             <h:form id="for" style="display: flex;">
                 
                 <p:panelGrid columns="2" 
@@ -53,11 +53,17 @@ and open the template in the editor.
             
                 <p:outputLabel value="Tipo usuario"/>
                 
+                
+                
                 <p:selectOneMenu id="tipo-usuario" style="width:150px">
                     <f:selectItem itemLabel="Tipo cliente" itemValue="#{registroController.usuario.tipoUsuario}" /> 
                        <f:selectItem itemLabel="Oferente" itemValue="Oferente" />
                        <f:selectItem itemLabel="Cliente" itemValue="Cliente" />
                 </p:selectOneMenu>
+                
+                
+                <p:captcha label="Captcha" />
+            <br />
                 
                 <p:commandButton value="Confirmar" actionListener="#{registroController.registrar()}" update="@form" action="#{registroController.volverInicio()}"/>
                 <p:commandButton  value="Atrás" action="index" update="@form"/>
@@ -67,7 +73,12 @@ and open the template in the editor.
                  
             </p:panelGrid>
                
-            </h:form>    
+            </h:form>
+            
+            
+            
+                        
+            
         </p:panel>
         </p:panel> 
         

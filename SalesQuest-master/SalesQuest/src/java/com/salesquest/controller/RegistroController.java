@@ -60,7 +60,8 @@ public class RegistroController {
         usuario.setApellidos("");
         usuario.setCorreo("");
         usuario.setNombreUsuario("");
-        
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      
     public String volverInicio(){
@@ -70,5 +71,9 @@ public class RegistroController {
         usuario.setNombreUsuario("");
     return "index.xhtml?faces-redirect=true";
     
+    }
+    public void submit() {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }
