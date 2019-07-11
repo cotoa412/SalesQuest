@@ -22,12 +22,14 @@ and open the template in the editor.
         
         <p:panel id="basic" header="Registrar"  style="margin-bottom:20px;text-align: center;">
         
-        <p:panel style="font-size: 20px;text-align: center;width: 700px;margin: 0 auto;">
+        <p:panel style="font-size: 20px;text-align: center;width: 800px;margin: 0 auto;">
             
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate />
             </p:messages>
+            
             <p:messages showDetail="true"/>
+            
             <h:form id="for" style="display: flex;">
                 
                 <p:panelGrid columns="2" 
@@ -57,15 +59,15 @@ and open the template in the editor.
                 
                 <p:selectOneMenu id="tipo-usuario" style="width:150px">
                     <f:selectItem itemLabel="Tipo cliente" itemValue="#{registroController.usuario.tipoUsuario}" /> 
-                       <f:selectItem itemLabel="Oferente" itemValue="Oferente" />
-                       <f:selectItem itemLabel="Cliente" itemValue="Cliente" />
+                    <f:selectItem itemLabel="Oferente" itemValue="Oferente" value="#{registroController.usuario.tipoUsuario}"/>
+                    <f:selectItem itemLabel="Cliente" itemValue="Cliente" value="#{registroController.usuario.tipoUsuario}" />
                 </p:selectOneMenu>
                 
                 
                 <p:captcha label="Captcha" />
             <br />
                 
-                <p:commandButton value="Confirmar" actionListener="#{registroController.registrar()}" update="@form" action="#{registroController.volverInicio()}"/>
+            <p:commandButton value="Confirmar" update="@form" action="#{registroController.registrar()}" />
                 <p:commandButton  value="Atrás" action="index" update="@form"/>
                 
                  

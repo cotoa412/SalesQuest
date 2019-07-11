@@ -10,6 +10,8 @@ import com.salesquest.servicio.Servicio_Codigo;
 import com.salesquest.servicio.Servicio_Usuario;
 import com.salesquest.model.Codigo;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -47,21 +49,40 @@ public class RegistroController {
         this.usuario = usuario;
     }
     
-    public void registrar(){
+    public String registrar(){
+     
+        String redirect = "";
+        
+        if (usuario.getNombre()=="" && usuario.getApellidos()=="" && usuario.getCorreo()=="" && usuario.getNombreUsuario()=="") {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se deben llenar todos los campos.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }else{
+            
+            if (this.comprobarCorreoValido(usuario.getCorreo()) == true) {
+        
+            Servicio_Usuario su = new Servicio_Usuario();
+            su.insertarDato(usuario);
+        
+            usuario.setNombre("");
+            usuario.setApellidos("");
+            usuario.setCorreo("");
+            usuario.setNombreUsuario("");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            
+         redirect =  "index.xhtml?faces-redirect=true";
+            
+        }else{
+            
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo realizar el registro."));
+            
+        }
+            
+        }
         
         
         
-        Servicio_Usuario su = new Servicio_Usuario();
-        su.insertarDato(usuario);
-        
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro completo."));
-        
-        usuario.setNombre("");
-        usuario.setApellidos("");
-        usuario.setCorreo("");
-        usuario.setNombreUsuario("");
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return redirect;
     }
      
     public String volverInicio(){
@@ -72,8 +93,27 @@ public class RegistroController {
     return "index.xhtml?faces-redirect=true";
     
     }
-    public void submit() {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    
+    public boolean comprobarCorreoValido(String correo){
+        
+        boolean comprobar = false;
+        
+        // Patrón para validar el email
+        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@"+"(([a-z]+)\\.([a-z]+))+");
+        
+        // El email a validar
+ 
+        Matcher mather = pattern.matcher(correo);
+ 
+        if (mather.find() == true) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "El email ingresado es válido.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            comprobar = true;
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El email ingresado es inválido.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        return comprobar;
     }
+     
 }
