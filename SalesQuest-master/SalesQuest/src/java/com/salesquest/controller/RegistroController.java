@@ -54,9 +54,22 @@ public class RegistroController {
         String redirect = "";
         
         if (usuario.getNombre()=="" && usuario.getApellidos()=="" && usuario.getCorreo()=="" && usuario.getNombreUsuario()=="") {
+            
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se deben llenar todos los campos.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+        }else if(this.comprobarNombreUsuario(usuario.getNombreUsuario())    ==  true){
+        
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El nombre de usuario ya está en uso .");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            
+        }else if(this.comprobarCorreo_Existe(usuario.getCorreo()) == true){
+        
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El correo electrónico ya está en uso.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            
         }else{
+            
             
             if (this.comprobarCorreoValido(usuario.getCorreo()) == true) {
         
@@ -114,6 +127,40 @@ public class RegistroController {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return comprobar;
+    }
+    
+    public boolean comprobarNombreUsuario(String nombreUsuario){
+        
+        boolean comprob = false;
+        
+        for (Object obj : new Servicio_Usuario().mostrarDatos()) {
+            
+            if (((Usuario)obj).getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
+            
+                comprob = true;
+                
+                
+            }
+               
+        }
+        return comprob;
+    }
+    
+    public boolean comprobarCorreo_Existe(String correo){
+    
+        boolean comprob = false;
+        
+        for (Object obj : new Servicio_Usuario().mostrarDatos()) {
+            
+            if (((Usuario)obj).getCorreo().equalsIgnoreCase(correo)) {
+            
+               comprob = true;
+                
+            }
+               
+        }
+        
+        return comprob;
     }
      
 }
